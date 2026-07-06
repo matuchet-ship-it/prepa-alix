@@ -1,0 +1,7 @@
+{
+  "name": "prepa-alix",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Prépa ALIX — suivi de préparation physique (FC Rouen). Profils Alix / Papa / Guest, séances A/B, saisie rapide, messages d'encouragement, dashboard de progression."
+}
