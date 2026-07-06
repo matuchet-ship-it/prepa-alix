@@ -461,6 +461,99 @@ function CodeGate({ profile, expected, onOK, onBack }) {
 const iconRun = <Footprints size={18} />;
 const activityIcon = (type) => type === "run" ? <Footprints size={18} /> : type === "abs" ? <Zap size={18} /> : <Dumbbell size={18} />;
 
+/* ============================================================
+   ILLUSTRATIONS DES APPAREILS (dessinées — chaque machine reconnaissable)
+   viewBox 0 0 120 72 · trait = currentColor
+   ============================================================ */
+const S = { fill: "none", stroke: "currentColor", strokeWidth: 3.4, strokeLinecap: "round", strokeLinejoin: "round" };
+const ART = {
+  treadmill: (
+    <g {...S}>
+      <path d="M18 54 L86 46" /><circle cx="20" cy="54" r="6" /><circle cx="84" cy="47" r="6" />
+      <path d="M84 47 L88 22" /><rect x="80" y="12" width="24" height="12" rx="2" />
+      <path d="M88 24 L100 24" />
+      <circle cx="52" cy="28" r="5" /><path d="M52 33 L52 44 M52 37 L44 42 M52 37 L60 41 M52 44 L46 52 M52 44 L58 52" strokeWidth="2.6" />
+    </g>
+  ),
+  crunch: (
+    <g {...S}>
+      <rect x="92" y="16" width="16" height="42" rx="2" /><path d="M96 24 H104 M96 32 H104 M96 40 H104" strokeWidth="2.2" />
+      <path d="M24 58 H70" /><path d="M40 58 V34" /><path d="M40 34 q0 -12 16 -12" />
+      <path d="M40 40 q-14 2 -14 14" /><circle cx="56" cy="20" r="4" />
+    </g>
+  ),
+  torso: (
+    <g {...S}>
+      <ellipse cx="56" cy="58" rx="30" ry="7" /><path d="M56 58 V26" />
+      <path d="M56 30 q-18 2 -22 16" /><path d="M56 30 q18 2 22 16" />
+      <circle cx="56" cy="20" r="5" /><path d="M84 20 a20 12 0 0 1 -10 14" strokeWidth="2.4" /><path d="M78 22 l6 -2 -1 6" strokeWidth="2.4" />
+    </g>
+  ),
+  roman: (
+    <g {...S}>
+      <path d="M40 62 H80" /><path d="M60 62 V16" />
+      <path d="M60 30 H40 M60 30 H80" /><path d="M40 30 V44 M80 30 V44" />
+      <circle cx="60" cy="20" r="4" /><path d="M60 34 L60 48 M60 40 L52 46 M60 40 L68 46" strokeWidth="2.4" />
+    </g>
+  ),
+  legpress: (
+    <g {...S}>
+      <path d="M16 58 H60" /><path d="M22 58 V44 L44 30" /><path d="M44 30 L44 44" />
+      <rect x="70" y="14" width="34" height="30" rx="2" transform="rotate(18 87 29)" />
+      <path d="M44 30 L74 20" /><path d="M40 40 l14 -8 M46 46 l14 -8" strokeWidth="2.4" />
+    </g>
+  ),
+  adductor: (
+    <g {...S}>
+      <path d="M28 58 H84" /><path d="M56 58 V34" /><circle cx="56" cy="26" r="5" />
+      <path d="M50 40 L40 54 M62 40 L72 54" />
+      <path d="M44 30 l8 6 M68 30 l-8 6" strokeWidth="2.4" /><path d="M46 28 l-2 6 M66 28 l2 6" strokeWidth="2.4" />
+    </g>
+  ),
+  abductor: (
+    <g {...S}>
+      <path d="M28 58 H84" /><path d="M56 58 V34" /><circle cx="56" cy="26" r="5" />
+      <path d="M52 40 L36 54 M60 40 L76 54" />
+      <path d="M40 30 l-8 6 M72 30 l8 6" strokeWidth="2.4" /><path d="M34 34 l6 2 M78 34 l-6 2" strokeWidth="2.4" />
+    </g>
+  ),
+  lat: (
+    <g {...S}>
+      <path d="M60 12 V20" /><path d="M40 20 H80" /><path d="M46 20 V26 M74 20 V26" />
+      <path d="M60 20 V16" strokeWidth="2.2" /><path d="M30 62 H74" /><path d="M52 62 V36" />
+      <circle cx="52" cy="30" r="5" /><path d="M52 34 L46 20 M52 34 L58 22" strokeWidth="2.4" /><path d="M52 46 H70 M70 46 V54" />
+    </g>
+  ),
+  shoulder: (
+    <g {...S}>
+      <rect x="14" y="16" width="14" height="42" rx="2" /><path d="M18 24 H24 M18 32 H24 M18 40 H24" strokeWidth="2.1" />
+      <path d="M44 62 H84" /><path d="M64 62 V34" /><circle cx="64" cy="26" r="5" />
+      <path d="M64 32 L50 22 M64 32 L78 22" /><path d="M48 20 V14 M80 20 V14" strokeWidth="2.4" />
+    </g>
+  ),
+  rowing: (
+    <g {...S}>
+      <rect x="90" y="18" width="16" height="40" rx="2" /><path d="M94 26 H102 M94 34 H102 M94 42 H102" strokeWidth="2.1" />
+      <path d="M18 60 H70" /><path d="M34 60 V40" /><circle cx="30" cy="32" r="5" />
+      <path d="M34 36 L58 36" /><path d="M58 36 L90 38" strokeWidth="2.2" /><path d="M58 30 V42" />
+    </g>
+  ),
+};
+const ART_BY_ID = {
+  a_footing_ech: "treadmill", a_frac: "treadmill", a_footing_fin: "treadmill", b_marche: "treadmill",
+  a_crunch: "crunch", a_torso: "torso", a_chaise: "roman",
+  b_presse2: "legpress", b_presse1: "legpress", b_add: "adductor", b_abd: "abductor",
+  b_lat: "lat", b_shoulder: "shoulder", b_rowing: "rowing",
+};
+function MachineArt({ id, type, className = "", style = {} }) {
+  const key = ART_BY_ID[id] || (type === "run" ? "treadmill" : type === "abs" ? "roman" : "crunch");
+  return (
+    <svg viewBox="0 0 120 72" className={className} style={style} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {ART[key]}
+    </svg>
+  );
+}
+
 function AthleteHome({ profile, store, setStore, program, onOpenSession, onRecords, onExit }) {
   const dayMsgRef = useRef(-1);
   const today = todayISO();
@@ -658,17 +751,20 @@ function SessionScreen({ profile, seance, program, onUpdate, onFinish, onBack, h
           const done = !!entry;
           return (
             <button key={a.id} onClick={() => openEntry(a)}
-              className="w-full rounded-3xl p-4 text-left shadow-sm active:scale-[.99] transition-transform border-2"
+              className="w-full rounded-3xl p-3 text-left shadow-sm active:scale-[.99] transition-transform border-2"
               style={{ background: done ? "#F0FDF4" : "#fff", borderColor: done ? "#86EFAC" : "transparent" }}>
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 text-white"
-                     style={{ background: done ? "#16A34A" : (seance.type === "A" ? RED : BLACK) }}>
-                  {done ? <Check size={20} /> : activityIcon(a.type)}
+              <div className="flex items-center gap-3">
+                {/* vignette illustrée de l'appareil */}
+                <div className="w-20 h-16 rounded-2xl flex items-center justify-center shrink-0 relative overflow-hidden"
+                     style={{ background: done ? "#DCFCE7" : "#F3F4F6" }}>
+                  <MachineArt id={a.id} type={a.type} className="w-16 h-12"
+                              style={{ color: done ? "#16A34A" : (seance.type === "A" ? RED : BLACK) }} />
+                  {done && <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-green-600 flex items-center justify-center"><Check size={13} className="text-white" /></div>}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="font-black leading-tight" style={{ color: BLACK }}>{a.nom}</div>
                   <div className="text-sm text-neutral-500">🎯 {a.cible}</div>
-                  {done && <div className="text-sm font-bold text-green-700 mt-1">✅ {realiseLabel(entry)}</div>}
+                  {done && <div className="text-sm font-bold text-green-700 mt-0.5">✅ {realiseLabel(entry)}</div>}
                 </div>
               </div>
             </button>
@@ -762,9 +858,9 @@ function EntrySheet({ actDef, existing, last, color, onClose, onValidate }) {
       <div className="w-full max-w-md bg-white rounded-t-3xl p-5 pb-8" onClick={(e) => e.stopPropagation()}
            style={{ paddingBottom: "max(2rem, env(safe-area-inset-bottom))" }}>
         <div className="w-10 h-1 bg-neutral-200 rounded-full mx-auto mb-4" />
-        <div className="flex items-center gap-2 mb-1">
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center text-white" style={{ background: color }}>
-            {activityIcon(actDef.type)}
+        <div className="flex items-center gap-3 mb-1">
+          <div className="w-16 h-14 rounded-2xl flex items-center justify-center shrink-0" style={{ background: "#F3F4F6" }}>
+            <MachineArt id={actDef.id} type={actDef.type} className="w-12 h-10" style={{ color }} />
           </div>
           <div className="font-black text-lg" style={{ color: BLACK }}>{actDef.nom}</div>
         </div>
