@@ -61,3 +61,5 @@ En local sans serveur `api/`, l'appli passe automatiquement en **mode local** (l
 
 ## Modifier le programme
 Les cibles v1 sont dans `app.jsx` (`DEFAULT_PROGRAM`). Édition des cibles depuis un écran admin protégé : prévu en P1.
+
+Déployé sur Vercel (base KV partagée).
